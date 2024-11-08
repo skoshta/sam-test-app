@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  ValidateJsonFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: main.lambda_handler  # Replace with your actual handler
+      Runtime: python3.12           # Replace with your preferred runtime
+      CodeUri: ./src                # Directory where Lambda code is stored
+      MemorySize: 128
+      Timeout: 5
+      Policies:
+        - AWSLambdaBasicExecutionRole
+      Events:
+        ApiGatewayEvent:
+          Type: Api
+          Properties:
+            Path: /validatejson       # Define the endpoint path
+            Method: get             # HTTP method (GET, POST, etc.)
+
+Outputs:
+  ApiUrl:
+    Description: "API Gateway endpoint URL"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/myendpoint"
