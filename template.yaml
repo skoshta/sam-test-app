@@ -5,9 +5,9 @@ Resources:
   ValidateJsonFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: main.lambda_handler  # Replace with your actual handler
+      Handler: app.lambda_handler   # Replace with your actual handler
       Runtime: python3.12           # Replace with your preferred runtime
-      CodeUri: ./src                # Directory where Lambda code is stored
+      CodeUri: .                    # Directory where Lambda code is stored
       MemorySize: 128
       Timeout: 5
       Policies:
@@ -22,4 +22,10 @@ Resources:
 Outputs:
   ApiUrl:
     Description: "API Gateway endpoint URL"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/myendpoint"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/ValidateJson"
+  ValidateJsonFunction:
+    Description: ValidateJson Lambda Function ARN
+    Value: !GetAtt ValidateJsonFunction.Arn
+  ValidateJsonFunctionIamRole:
+    Description: Implicit IAM Role created for ValidateJson function
+    Value: !GetAtt ValidateJsonFunctionRole.Arn

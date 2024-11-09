@@ -1,7 +1,7 @@
 import json
 import unittest
 
-from src.main import lambda_handler
+from app import lambda_handler
 
 
 class TestMain(unittest.TestCase):
